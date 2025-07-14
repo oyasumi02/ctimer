@@ -4,11 +4,13 @@
 #include "../includes/util.h"
 #include "../includes/timer.h"
 #include "../includes/display.h"
+#include "../includes/state.h"
 
 int main() {
 
-    // Flags
-    // bool isRunning = true;
+    // Important Variables
+    bool isRunning = true;
+    PROGRAM_STATE program_state = PROGRAM_UI_SELECT_TIMER;
 
     // Malloc timer struct
     Timer *pTimer = (Timer*)malloc(sizeof(Timer));
@@ -26,7 +28,37 @@ int main() {
         *(field + i) = 0;
     }
 
-    DisplayTimer(*pTimer);
+    while (isRunning) {
+        switch (program_state) {
+            case (PROGRAM_UI_SELECT_TIMER): {
+
+            }
+
+            case (PROGRAM_UI_CONFIGURE_TIMER): {
+
+            }
+
+            case (PROGRAM_TIMER_STOPWATCH_COUNT): {
+
+            }
+
+            case (PROGRAM_TIMER_STOPWATCH_FINISHED): {
+
+            }
+
+            case (PROGRAM_TIMER_COUNTDOWN_COUNT): {
+
+            }
+
+            case (PROGRAM_TIMER_COUNTDOWN_FINISHED): {
+
+            }
+
+            case (PROGRAM_EXIT): {
+                isRunning = false;
+            }
+        }
+    }
 
     // Free
     free(pTimer);

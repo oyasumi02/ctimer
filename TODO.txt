@@ -1,0 +1,15 @@
+General Idea:
+
+The timer will have a menu that will
+let you select the time of timer you want.
+You can have countdown mode, or a stopwatch mode.
+Ideally you would want the timers to run in the background,
+or maybe even run multiple timers. Ideally
+a simple neat UI would suffice.
+
+Things to implement:
+
+- Dynamic UI structure
+- Multiple Timers running at the same time
+- Ease of use
+- Eventual portability
