@@ -47,4 +47,5 @@ void DisplayTimer(Timer *timer) {
         timer->secondsOnesPlace
     );
     printf("+=============+\n");
+    fflush(stdout);
 }
