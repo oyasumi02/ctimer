@@ -62,7 +62,7 @@ int main(int arc, char *argv[]) {
             } break;
 
             case (PROGRAM_TIMER_COUNT): {
-                
+                TIMER_COUNT(timer, timer_mode);
             }
 
             case (PROGRAM_EXIT): {
