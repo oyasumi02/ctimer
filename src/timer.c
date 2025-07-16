@@ -1,9 +1,5 @@
 #include "../includes/timer.h"
 
-void MODE_Stopwatch(Timer *timer) {
-
-}
-
-void MODE_Countdown(Timer *timer) {
-
+void TIMER_COUNT(TIMER_MODE *timer_mode, PROGRAM_STATE *program_state) {
+    
 }

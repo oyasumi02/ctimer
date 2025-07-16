@@ -5,14 +5,20 @@
 #include "../includes/timer.h"
 #include "../includes/display.h"
 #include "../includes/state.h"
+#include "../includes/mode.h"
 
 int main(int arc, char *argv[]) {
 
     // Important Variables
     bool *isRunning = (bool*)malloc(sizeof(bool));
-    PROGRAM_STATE program_state = PROGRAM_UI_SELECT_TIMER;
     if (isRunning == NULL) {
         printf("ERROR: Failed to allocate isRunning bool\n");
+        return 1;
+    }
+
+    bool *isCounting = (bool*)malloc(sizeof(bool));
+    if (isCounting == NULL) {
+        printf("ERROR: Failed to allocate isCounting bool\n");
         return 1;
     }
 
@@ -20,6 +26,19 @@ int main(int arc, char *argv[]) {
     Timer *timer = (Timer*)malloc(sizeof(Timer));
     if (timer == NULL) {
         printf("ERROR: Failed to allocate Timer struct\n");
+        return 1;
+    }
+
+    // Initialize State and Mode enums
+    PROGRAM_STATE *program_state = malloc(sizeof(PROGRAM_STATE));
+    if (program_state == NULL) {
+        printf("ERROR: Failed to allocate program_state enum\n");
+        return 1;
+    }
+
+    TIMER_MODE *timer_mode = malloc(sizeof(TIMER_MODE));
+    if (timer_mode == NULL) {
+        printf("ERROR: failed to allocate timer_mode enum\n");
         return 1;
     }
 
@@ -33,30 +52,18 @@ int main(int arc, char *argv[]) {
     }
 
     while (isRunning) {
-        switch (program_state) {
+        switch (*program_state) {
             case (PROGRAM_UI_SELECT_TIMER): {
-
+                UI_SelectTimer(timer, timer_mode, program_state, isRunning);
             } break;
 
             case (PROGRAM_UI_CONFIGURE_TIMER): {
-
+                UI_ConfigureTimer(timer, timer_mode, program_state);
             } break;
 
-            case (PROGRAM_TIMER_STOPWATCH_COUNT): {
-
-            } break;
-
-            case (PROGRAM_TIMER_STOPWATCH_FINISHED): {
-
-            } break;
-
-            case (PROGRAM_TIMER_COUNTDOWN_COUNT): {
-
-            } break;
-
-            case (PROGRAM_TIMER_COUNTDOWN_FINISHED): {
-
-            } break;
+            case (PROGRAM_TIMER_COUNT): {
+                
+            }
 
             case (PROGRAM_EXIT): {
                 isRunning = false;
@@ -65,6 +72,7 @@ int main(int arc, char *argv[]) {
     }
 
     // Free
+    free(isRunning);
     free(timer);
 
     return 0;

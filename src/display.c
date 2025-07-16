@@ -3,7 +3,7 @@
 #include "../includes/timer.h"
 #include <stdbool.h>
 
-void UI_SelectTimer(Timer *timer, bool *isRunning) {
+void UI_SelectTimer(Timer *timer, TIMER_MODE *timer_mode, PROGRAM_STATE *state, bool *isRunning) {
     int input = 0;
     printf("    :: | ctimer | ::    \n");
     printf("[]====================[]\n");
@@ -19,11 +19,11 @@ void UI_SelectTimer(Timer *timer, bool *isRunning) {
 
     switch (input) {
         case 1: {
-            MODE_Stopwatch(timer);
+            *state = PROGRAM_UI_CONFIGURE_TIMER;
         } break;
 
         case 2: {
-            MODE_Countdown(timer);
+            
         } break;
 
         case 3: {
@@ -32,7 +32,7 @@ void UI_SelectTimer(Timer *timer, bool *isRunning) {
     }
 }
 
-void UI_ConfigureTimer(Timer *timer) {
+void UI_ConfigureTimer(Timer *timer, TIMER_MODE *timer_mode, PROGRAM_STATE *state) {
     
 }
 

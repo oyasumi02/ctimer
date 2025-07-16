@@ -3,6 +3,7 @@
         "handle_time.h": "c",
         "util.h": "c",
         "timer.h": "c",
-        "state.h": "c"
+        "state.h": "c",
+        "display.h": "c"
     }
 }

@@ -13,3 +13,6 @@ Things to implement:
 - Multiple Timers running at the same time
 - Ease of use
 - Eventual portability
+
+WHERE I LEFT OFF:
+- Properly fix the state and mode system.

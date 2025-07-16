@@ -1,5 +1,7 @@
 #ifndef TIMER_H
 #define TIMER_H
+#include "./state.h"
+#include "./mode.h"
 
 typedef struct {
     
@@ -15,7 +17,6 @@ typedef struct {
 
 } Timer;
 
-void MODE_Stopwatch(Timer *timer);
-void MODE_Countdown(Timer *timer);
+void TIMER_COUNT(TIMER_MODE *timer_mode, PROGRAM_STATE *program_state);
 
 #endif
