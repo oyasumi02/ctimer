@@ -9,4 +9,10 @@ typedef enum {
     PROGRAM_EXIT                        // When user exits through the menu
 } PROGRAM_STATE;
 
+typedef enum {
+    TIMER_STATE_RUNNING,
+    TIMER_STATE_PAUSED,
+    Timer_STATE_STOPPED
+} TIMER_STATE;
+
 #endif
