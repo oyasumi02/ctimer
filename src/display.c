@@ -4,8 +4,10 @@
 #include <string.h>
 #include "../includes/display.h"
 #include "../includes/timer.h"
+#include "../includes/util.h"
 
 void UI_SelectTimer(Timer *timer, TIMER_MODE *timer_mode, PROGRAM_STATE *state) {
+    Flush();
     int input = 0;
     printf("    :: | ctimer | ::    \n");
     printf("[]====================[]\n");
@@ -33,10 +35,17 @@ void UI_SelectTimer(Timer *timer, TIMER_MODE *timer_mode, PROGRAM_STATE *state) 
         case 0: {
             *state = PROGRAM_EXIT;
         } break;
+
+        default: {\
+            Flush();
+            printf("%d is an invalid option!\n");
+            SleepSeconds(3);
+        } break;
     }
 }
 
 void UI_ConfigureTimer(Timer *timer, TIMER_MODE *timer_mode, PROGRAM_STATE *state) {
+    Flush();
     char *userInput = "";
     char *selectedMode = "NONE";
 
@@ -65,6 +74,7 @@ void UI_Input(Timer *timer, PROGRAM_STATE *program_state) {
 }
 
 void DisplayTimer(Timer *timer) {
+    Flush();
     printf("+=============+\n");
     printf("%d%d:%d%d:%d%d\n",
         timer->hoursTensPlace,

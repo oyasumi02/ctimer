@@ -3,5 +3,6 @@
 #include <stdbool.h>
 
 void SleepSeconds(int sec);
+void Flush();
 
 #endif
