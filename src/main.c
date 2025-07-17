@@ -99,5 +99,8 @@ int main(int arc, char *argv[]) {
     // Destroy mutex
     pthread_mutex_destroy(&timer_mutex);
 
+    // Clear screen at the end
+    Flush();
+
     return 0;
 }

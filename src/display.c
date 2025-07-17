@@ -2,6 +2,7 @@
 #include <stdbool.h>
 #include <pthread.h>
 #include <string.h>
+#include <ctype.h>
 #include "../includes/display.h"
 #include "../includes/timer.h"
 #include "../includes/util.h"
@@ -47,8 +48,9 @@ void UI_SelectTimer(Timer *timer, TIMER_MODE *timer_mode, PROGRAM_STATE *state) 
 
 void UI_ConfigureTimer(Timer *timer, TIMER_MODE *timer_mode, PROGRAM_STATE *state) {
     Flush();
-    char *userInput = "";
+    char selectedTime[9]; // 9 is the size of "00:00:00" plus \0
     char *selectedMode = "NONE";
+    size_t length = strlen(selectedMode);
 
     switch (*timer_mode) {
         case (TIMER_MODE_STOPWATCH): {
@@ -67,7 +69,30 @@ void UI_ConfigureTimer(Timer *timer, TIMER_MODE *timer_mode, PROGRAM_STATE *stat
     printf("++ Format: 00:00:00       ++\n");
     printf("{}[]====================[]{}\n");
     printf("--> ");
-    scanf("%s", userInput);
+    fgets(selectedTime, sizeof(selectedTime), stdin);
+    selectedTime[strcspn(selectedTime, "\n")] = '\0'; // Remove newline
+
+    // Check Length
+    if (strlen(selectedTime) != 8) {
+        Flush();
+        printf("Incorrect format length, should exactly match: 00:00:00\n");
+        SleepSeconds(3);
+        UI_ConfigureTimer(timer, timer_mode, state);
+    }
+
+    // Create logic here to parse digits into the timer struct
+    if (selectedTime[2] == ':' && selectedTime[5] == ':') {
+        for (int i = 0; i < length; i++) {
+            if (i != 2 || i != 5) {
+                if (!isdigit(selectedTime[i])) {
+                    Flush();
+                    printf("Invalid digits, should exactly match: 00:00:00\n");
+                    SleepSeconds(3);
+                    UI_ConfigureTimer(timer, timer_mode, state);
+                }
+            }
+        }
+    }
 }
 
 void UI_Input(Timer *timer, PROGRAM_STATE *program_state) {
