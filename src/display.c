@@ -1,7 +1,8 @@
 #include <stdio.h>
+#include <stdbool.h>
+#include <pthread.h>
 #include "../includes/display.h"
 #include "../includes/timer.h"
-#include <stdbool.h>
 
 void UI_SelectTimer(Timer *timer, TIMER_MODE *timer_mode, PROGRAM_STATE *state, bool *isRunning) {
     int input = 0;

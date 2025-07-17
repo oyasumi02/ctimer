@@ -4,8 +4,9 @@
 typedef enum {
     PROGRAM_UI_SELECT_TIMER = 0,        // Picking the type of timer
     PROGRAM_UI_CONFIGURE_TIMER,         // Setting the digits on the timer
-    PROGRAM_TIMER_RUNNING,                // Begins the count on the timer
+    PROGRAM_TIMER_RUNNING,              // Begins the count on the timer (Multithreaded)
     PROGRAM_TIMER_FINISHED,             // When the timer is finished
+    PROGRAM_INPUT,                      // Lets the user input (Multithreaded)
     PROGRAM_EXIT                        // When user exits through the menu
 } PROGRAM_STATE;
 

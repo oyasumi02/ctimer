@@ -7,7 +7,8 @@
 
 // UI
 void UI_SelectTimer(Timer *timer, TIMER_MODE *timer_mode,PROGRAM_STATE *state, bool *isRunning);
-void UI_ConfigureTimer(Timer *timer, TIMER_MODE *timer_mode,PROGRAM_STATE *program_state);
+void UI_ConfigureTimer(Timer *timer, TIMER_MODE *timer_mode, PROGRAM_STATE *program_state);
+void UI_Input(Timer *timer, PROGRAM_STATE program_state);
 
 // Timer
 void DisplayTimer(Timer *timer);

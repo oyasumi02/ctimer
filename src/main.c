@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <pthread.h>
 #include "../includes/util.h"
 #include "../includes/timer.h"
 #include "../includes/display.h"
@@ -42,8 +43,11 @@ int main(int arc, char *argv[]) {
         return 1;
     }
 
-    // || Initialize attributes ||
-    int *field = (int*)timer; // We treat the pTimer struct as an array of ints
+    pthread_mutex_t timer_mutex = PTHREAD_MUTEX_INITIALIZER;    // Used to multithread timer
+    // pthread_mutex_t state_mutex = PTHREAD_MUTEX_INITIALIZER;    // Used to multithread states
+
+    // SET TIMER DIGITS TO 0
+    int *field = (int*)timer; // Treat the struct as an array of ints so we can loop through them
     size_t numFields = sizeof(Timer) / sizeof(int);
 
     // Now assign 0 to all attributes using pointer arithmetic
@@ -51,6 +55,7 @@ int main(int arc, char *argv[]) {
         *(field + i) = 0;
     }
 
+    // Main Program Loop
     while (isRunning) {
         switch (*program_state) {
             case (PROGRAM_UI_SELECT_TIMER): {
@@ -61,8 +66,20 @@ int main(int arc, char *argv[]) {
                 UI_ConfigureTimer(timer, timer_mode, program_state);
             } break;
 
-            case (PROGRAM_TIMER_COUNT): {
-                TIMER_COUNT(timer, timer_mode);
+            case (PROGRAM_TIMER_RUNNING): {
+                pthread_mutex_lock(&timer_mutex);
+                TIMER_COUNT(timer, timer_mode, program_state);
+                DisplayTimer(timer);
+                pthread_mutex_unlock(&timer_mutex);
+            } break;
+
+            case (PROGRAM_TIMER_FINISHED): {
+
+            } break;
+
+            case (PROGRAM_INPUT): {
+                pthread_mutex_lock(&timer_mutex);
+                pthread_mutex_unlock(&timer_mutex);
             }
 
             case (PROGRAM_EXIT): {
