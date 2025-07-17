@@ -59,7 +59,7 @@ int main(int arc, char *argv[]) {
     while (isRunning) {
         switch (*program_state) {
             case (PROGRAM_UI_SELECT_TIMER): {
-                UI_SelectTimer(timer, timer_mode, program_state, isRunning);
+                UI_SelectTimer(timer, timer_mode, program_state);
             } break;
 
             case (PROGRAM_UI_CONFIGURE_TIMER): {
@@ -79,6 +79,7 @@ int main(int arc, char *argv[]) {
 
             case (PROGRAM_INPUT): {
                 pthread_mutex_lock(&timer_mutex);
+                UI_Input(timer, program_state);
                 pthread_mutex_unlock(&timer_mutex);
             }
 

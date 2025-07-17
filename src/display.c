@@ -1,10 +1,11 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <pthread.h>
+#include <string.h>
 #include "../includes/display.h"
 #include "../includes/timer.h"
 
-void UI_SelectTimer(Timer *timer, TIMER_MODE *timer_mode, PROGRAM_STATE *state, bool *isRunning) {
+void UI_SelectTimer(Timer *timer, TIMER_MODE *timer_mode, PROGRAM_STATE *state) {
     int input = 0;
     printf("    :: | ctimer | ::    \n");
     printf("[]====================[]\n");
@@ -20,21 +21,47 @@ void UI_SelectTimer(Timer *timer, TIMER_MODE *timer_mode, PROGRAM_STATE *state, 
 
     switch (input) {
         case 1: {
+            *timer_mode = TIMER_MODE_STOPWATCH;
             *state = PROGRAM_UI_CONFIGURE_TIMER;
         } break;
 
         case 2: {
-            
+            *timer_mode = TIMER_MODE_COUNTDOWN;
+            *state = PROGRAM_UI_CONFIGURE_TIMER;
         } break;
 
-        case 3: {
-            *isRunning = false;
-        }
+        case 0: {
+            *state = PROGRAM_EXIT;
+        } break;
     }
 }
 
 void UI_ConfigureTimer(Timer *timer, TIMER_MODE *timer_mode, PROGRAM_STATE *state) {
-    
+    char *userInput = "";
+    char *selectedMode = "NONE";
+
+    switch (*timer_mode) {
+        case (TIMER_MODE_STOPWATCH): {
+            selectedMode = "Stopwatch";
+        } break;
+
+        case (TIMER_MODE_COUNTDOWN): {
+            selectedMode = "Countdown";
+        } break;
+    }
+
+    printf("{}[]====================[]{}\n");
+    printf("++ Current Mode: %s       ++\n", selectedMode);
+    printf("{}[]====================[]{}\n");
+    printf("++ Set the time           ++\n");
+    printf("++ Format: 00:00:00       ++\n");
+    printf("{}[]====================[]{}\n");
+    printf("--> ");
+    scanf("%s", userInput);
+}
+
+void UI_Input(Timer *timer, PROGRAM_STATE *program_state) {
+
 }
 
 void DisplayTimer(Timer *timer) {
