@@ -91,7 +91,13 @@ int main(int arc, char *argv[]) {
 
     // Free
     free(isRunning);
+    free(isCounting);
     free(timer);
+    free(program_state);
+    free(timer_mode);
+
+    // Destroy mutex
+    pthread_mutex_destroy(&timer_mutex);
 
     return 0;
 }
