@@ -38,7 +38,7 @@ void UI_SelectTimer(Timer *timer, TIMER_MODE *timer_mode, PROGRAM_STATE *state) 
 
         default: {
             Flush();
-            printf("%d is an invalid option!\n");
+            printf("%d is an invalid option!\n", input);
             SleepSeconds(3);
             UI_SelectTimer(timer, timer_mode, state);
         } break;
