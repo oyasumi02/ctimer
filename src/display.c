@@ -104,12 +104,12 @@ void UI_ConfigureTimer(Timer *timer, TIMER_MODE *timer_mode, PROGRAM_STATE *stat
     }
 
     // Assign digits to timer struct
-    timer->hoursTensPlace = selectedTime[0];
-    timer->hoursOnesPlace = selectedTime[1];
-    timer->minutesTensPlace = selectedTime[3];
-    timer->minutesOnesPlace = selectedTime[4];
-    timer->secondsTensPlace = selectedTime[6];
-    timer->secondsOnesPlace = selectedTime[7];
+    timer->hoursTensPlace = selectedTime[0] - '0';
+    timer->hoursOnesPlace = selectedTime[1] - '0';
+    timer->minutesTensPlace = selectedTime[3] - '0';
+    timer->minutesOnesPlace = selectedTime[4] - '0';
+    timer->secondsTensPlace = selectedTime[6] - '0';
+    timer->secondsOnesPlace = selectedTime[7] - '0';
 
     unsigned char confirm = ' '; // This is just for the confirmation screen
 
