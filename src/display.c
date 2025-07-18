@@ -76,7 +76,6 @@ void UI_ConfigureTimer(Timer *timer, TIMER_MODE *timer_mode, PROGRAM_STATE *stat
     // Check Length
     if (strlen(selectedTime) != 8) {
         Flush();
-        strcpy(selectedTime, " ");
         printf("Incorrect format length, should exactly match: 00:00:00\n");
         SleepSeconds(3);
         UI_ConfigureTimer(timer, timer_mode, state);
@@ -89,7 +88,6 @@ void UI_ConfigureTimer(Timer *timer, TIMER_MODE *timer_mode, PROGRAM_STATE *stat
             if (i != 2 && i != 5) {
                 if (!isdigit(selectedTime[i])) {
                     Flush();
-                    strcpy(selectedTime, " ");
                     printf("Invalid digits, should exactly match: 00:00:00\n");
                     SleepSeconds(3);
                     UI_ConfigureTimer(timer, timer_mode, state);
@@ -99,7 +97,6 @@ void UI_ConfigureTimer(Timer *timer, TIMER_MODE *timer_mode, PROGRAM_STATE *stat
         }
     } else {
         Flush();
-        strcpy(selectedTime, " ");
         printf("Invalid format, did you remember to insert ':'?");
         SleepSeconds(3);
         UI_ConfigureTimer(timer, timer_mode, state);
