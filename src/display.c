@@ -21,6 +21,7 @@ void UI_SelectTimer(Timer *timer, TIMER_MODE *timer_mode, PROGRAM_STATE *state) 
     printf("[]====================[]\n");
     printf("--> ");
     scanf("%d", &input);
+    getchar();
 
     switch (input) {
         case 1: {
@@ -49,16 +50,16 @@ void UI_SelectTimer(Timer *timer, TIMER_MODE *timer_mode, PROGRAM_STATE *state) 
 void UI_ConfigureTimer(Timer *timer, TIMER_MODE *timer_mode, PROGRAM_STATE *state) {
     Flush();
     char selectedTime[9]; // 9 is the size of "00:00:00" plus \0
-    char *selectedMode = "NONE";
-    size_t length = strlen(selectedMode);
+    char selectedMode[16];
+    size_t length = strlen(selectedTime);
 
     switch (*timer_mode) {
         case (TIMER_MODE_STOPWATCH): {
-            selectedMode = "Stopwatch";
+            strcpy(selectedMode, "Stopwatch");
         } break;
 
         case (TIMER_MODE_COUNTDOWN): {
-            selectedMode = "Countdown";
+            strcpy(selectedMode, "Countdown");
         } break;
     }
 
@@ -75,22 +76,72 @@ void UI_ConfigureTimer(Timer *timer, TIMER_MODE *timer_mode, PROGRAM_STATE *stat
     // Check Length
     if (strlen(selectedTime) != 8) {
         Flush();
+        strcpy(selectedTime, " ");
         printf("Incorrect format length, should exactly match: 00:00:00\n");
         SleepSeconds(3);
         UI_ConfigureTimer(timer, timer_mode, state);
+        return;
     }
 
-    // Create logic here to parse digits into the timer struct
+    // Check Formatting is exactly correct
     if (selectedTime[2] == ':' && selectedTime[5] == ':') {
         for (int i = 0; i < length; i++) {
-            if (i != 2 || i != 5) {
+            if (i != 2 && i != 5) {
                 if (!isdigit(selectedTime[i])) {
                     Flush();
+                    strcpy(selectedTime, " ");
                     printf("Invalid digits, should exactly match: 00:00:00\n");
                     SleepSeconds(3);
                     UI_ConfigureTimer(timer, timer_mode, state);
+                    return;
                 }
             }
+        }
+    } else {
+        Flush();
+        strcpy(selectedTime, " ");
+        printf("Invalid format, did you remember to insert ':'?");
+        SleepSeconds(3);
+        UI_ConfigureTimer(timer, timer_mode, state);
+        return;
+    }
+
+    // Assign digits to timer struct
+    timer->hoursTensPlace = selectedTime[0];
+    timer->hoursOnesPlace = selectedTime[1];
+    timer->minutesTensPlace = selectedTime[3];
+    timer->minutesOnesPlace = selectedTime[4];
+    timer->secondsTensPlace = selectedTime[6];
+    timer->secondsOnesPlace = selectedTime[7];
+
+    unsigned char confirm = ' '; // This is just for the confirmation screen
+
+    // Confirmation Screen
+    printf("{}[]============================[]{}\n");
+    printf("++ Current Mode: %s               ++\n", selectedMode);
+    printf("{}[]============================[]{}\n");
+    printf("   %d%d:%d%d:%d%d                     ",
+        timer->hoursTensPlace,
+        timer->hoursOnesPlace,
+        timer->minutesTensPlace,
+        timer->minutesOnesPlace,
+        timer->secondsTensPlace,
+        timer->secondsOnesPlace
+    );
+    printf("++ Set the timer? [y/n]           ++\n");
+    printf("{}[]============================[]{}\n");
+    printf("--> ");
+    scanf(" %c", &confirm);
+    getchar();
+    confirm = tolower(confirm);
+
+    switch (confirm) {
+        case ('y'): {
+            *state = PROGRAM_TIMER_RUNNING;
+        } break;
+
+        default: {
+            UI_SelectTimer(timer, timer_mode, state);
         }
     }
 }
