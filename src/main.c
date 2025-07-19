@@ -44,7 +44,7 @@ int main(int arc, char *argv[]) {
     }
 
     pthread_mutex_t timer_mutex = PTHREAD_MUTEX_INITIALIZER;    // Used to multithread timer
-    // pthread_mutex_t state_mutex = PTHREAD_MUTEX_INITIALIZER;    // Used to multithread states
+    pthread_mutex_t count_mutex = PTHREAD_MUTEX_INITIALIZER;
 
     // SET TIMER DIGITS TO 0
     int *field = (int*)timer; // Treat the struct as an array of ints so we can loop through them
@@ -98,6 +98,7 @@ int main(int arc, char *argv[]) {
 
     // Destroy mutex
     pthread_mutex_destroy(&timer_mutex);
+    pthread_mutex_destroy(&count_mutex);
 
     // Clear screen at the end
     Flush();

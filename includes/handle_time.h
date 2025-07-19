@@ -3,6 +3,6 @@
 #include <stdbool.h>
 #include "./timer.h"
 
-void TIME_CountTime(Timer *timer, bool is_on);
+void TIME_CountTime(Timer *timer, TIMER_MODE *timer_mode, TIMER_STATE *timer_state);
 
 #endif

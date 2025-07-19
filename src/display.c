@@ -51,7 +51,6 @@ void UI_ConfigureTimer(Timer *timer, TIMER_MODE *timer_mode, PROGRAM_STATE *stat
     Flush();
     char selectedTime[9]; // 9 is the size of "00:00:00" plus \0
     char selectedMode[16];
-    size_t length = strlen(selectedTime);
 
     switch (*timer_mode) {
         case (TIMER_MODE_STOPWATCH): {
@@ -64,7 +63,7 @@ void UI_ConfigureTimer(Timer *timer, TIMER_MODE *timer_mode, PROGRAM_STATE *stat
     }
 
     printf("{}[]====================[]{}\n");
-    printf("++ Current Mode: %s       ++\n", selectedMode);
+    printf("   Current Mode: %s         \n", selectedMode);
     printf("{}[]====================[]{}\n");
     printf("++ Set the time           ++\n");
     printf("++ Format: 00:00:00       ++\n");
@@ -81,6 +80,8 @@ void UI_ConfigureTimer(Timer *timer, TIMER_MODE *timer_mode, PROGRAM_STATE *stat
         UI_ConfigureTimer(timer, timer_mode, state);
         return;
     }
+
+    size_t length = strlen(selectedTime);
 
     // Check Formatting is exactly correct
     if (selectedTime[2] == ':' && selectedTime[5] == ':') {
@@ -114,10 +115,11 @@ void UI_ConfigureTimer(Timer *timer, TIMER_MODE *timer_mode, PROGRAM_STATE *stat
     unsigned char confirm = ' '; // This is just for the confirmation screen
 
     // Confirmation Screen
+    Flush();
     printf("{}[]============================[]{}\n");
-    printf("++ Current Mode: %s               ++\n", selectedMode);
+    printf("   Current Mode: %s                 \n", selectedMode);
     printf("{}[]============================[]{}\n");
-    printf("   %d%d:%d%d:%d%d                     ",
+    printf("   %d%d:%d%d:%d%d                   \n",
         timer->hoursTensPlace,
         timer->hoursOnesPlace,
         timer->minutesTensPlace,
@@ -125,7 +127,7 @@ void UI_ConfigureTimer(Timer *timer, TIMER_MODE *timer_mode, PROGRAM_STATE *stat
         timer->secondsTensPlace,
         timer->secondsOnesPlace
     );
-    printf("++ Set the timer? [y/n]           ++\n");
+    printf("    Set the timer? [y/n]           \n");
     printf("{}[]============================[]{}\n");
     printf("--> ");
     scanf(" %c", &confirm);
@@ -144,7 +146,13 @@ void UI_ConfigureTimer(Timer *timer, TIMER_MODE *timer_mode, PROGRAM_STATE *stat
 }
 
 void UI_Input(Timer *timer, PROGRAM_STATE *program_state) {
-
+    unsigned char input[64];
+    printf("-->");
+    fgets(input, sizeof(input), stdin);
+    input[strcspn(input, '\n')] = '\0'; // Remove the newline
+    if (strcmp(input, "pause")) {
+        
+    }
 }
 
 void DisplayTimer(Timer *timer) {

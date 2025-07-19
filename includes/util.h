@@ -3,6 +3,9 @@
 #include <stdbool.h>
 
 void SleepSeconds(int sec);
-void Flush();
+void Flush(void);
+void ClearBufferOverflow(void);
+void LowerString(char *s);
+
 
 #endif

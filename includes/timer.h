@@ -17,6 +17,7 @@ typedef struct {
 
 } Timer;
 
-void TIMER_COUNT(Timer *timer, TIMER_MODE *timer_mode, PROGRAM_STATE *program_state);
+void TIMER_STOPWATCH(Timer *timer);
+void TIMER_COUNTDOWN(Timer *timer);
 
 #endif
