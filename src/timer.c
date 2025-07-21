@@ -1,4 +1,5 @@
 #include "../includes/timer.h"
+#include "../includes/util.h"
 
 void TIMER_STOPWATCH(Timer *timer) {
     int *places[] = {
@@ -44,4 +45,8 @@ void TIMER_STOPWATCH(Timer *timer) {
             *places[i] = 0;
         }
     }
+}
+
+void TIMER_COUNTDOWN(Timer* timer) {
+
 }

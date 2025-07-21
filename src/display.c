@@ -145,13 +145,17 @@ void UI_ConfigureTimer(Timer *timer, TIMER_MODE *timer_mode, PROGRAM_STATE *stat
     }
 }
 
-void UI_Input(Timer *timer, PROGRAM_STATE *program_state) {
-    unsigned char input[64];
+void UI_Input(Timer *timer, TIMER_STATE *timer_state, PROGRAM_STATE *program_state) {
+    char input[64];
     printf("-->");
     fgets(input, sizeof(input), stdin);
-    input[strcspn(input, '\n')] = '\0'; // Remove the newline
+    input[strcspn(input, "\n")] = '\0'; // Remove the newline
     if (strcmp(input, "pause")) {
-        
+        *timer_state = TIMER_STATE_PAUSED;
+    } else if (strcmp(input, "unpause")) {
+        *timer_state = TIMER_STATE_PAUSED;
+    } else if (strcmp(input, "stop")) {
+        *timer_state = TIMER_STATE_PAUSED;
     }
 }
 
@@ -168,4 +172,8 @@ void DisplayTimer(Timer *timer) {
     );
     printf("+=============+\n");
     fflush(stdout);
+}
+
+void DisplayTimerFinished(Timer *timer) {
+    
 }
