@@ -141,7 +141,7 @@ void UI_ConfigureTimer(Timer *timer, TIMER_MODE *timer_mode, PROGRAM_STATE *stat
 
         default: {
             UI_SelectTimer(timer, timer_mode, state);
-        }
+        } break;
     }
 }
 
