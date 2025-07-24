@@ -73,6 +73,8 @@ int main(int arc, char *argv[])
         *(field + i) = 0;
     }
 
+    *isRunning = true;
+
     // Main Program Loop
     while (*isRunning)
     {

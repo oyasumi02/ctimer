@@ -19,7 +19,7 @@ void TIMER_STOPWATCH(Timer *timer) {
         timer->secondsTensPlace++;
     }
 
-    if (timer->secondsTensPlace > 6) {
+    if (timer->secondsTensPlace > 5) {
         timer->secondsTensPlace = 0;
         timer->minutesOnesPlace++;
     }
@@ -29,7 +29,7 @@ void TIMER_STOPWATCH(Timer *timer) {
         timer->minutesTensPlace++;
     }
 
-    if (timer->minutesTensPlace > 6) {
+    if (timer->minutesTensPlace > 5) {
         timer->minutesTensPlace = 0;
         timer->hoursOnesPlace++;
     }
