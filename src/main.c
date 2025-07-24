@@ -9,93 +9,114 @@
 #include "../includes/mode.h"
 #include "../includes/handle_time.h"
 
-int main(int arc, char *argv[]) {
+int main(int arc, char *argv[])
+{
 
     // :: | [ ENUM STATES AND MUTEX INITIALIZATION ] | ::
 
     // Is the program running?
-    bool *isRunning = (bool*)malloc(sizeof(bool));
-    if (isRunning == NULL) {
+    bool *isRunning = (bool *)malloc(sizeof(bool));
+    if (isRunning == NULL)
+    {
         printf("ERROR: Failed to allocate isRunning bool\n");
         return 1;
     }
 
     // Is the timer counting?
-    bool *isCounting = (bool*)malloc(sizeof(bool));
-    if (isCounting == NULL) {
+    bool *isCounting = (bool *)malloc(sizeof(bool));
+    if (isCounting == NULL)
+    {
         printf("ERROR: Failed to allocate isCounting bool\n");
         return 1;
     }
 
     // Instantiate the timer (Will be set to)
     Timer *timer = calloc(1, sizeof(Timer));
-    if (timer == NULL) {
+    if (timer == NULL)
+    {
         printf("ERROR: Failed to allocate timer struct\n");
         return 1;
     }
 
     // Initialize State and Mode enums
     PROGRAM_STATE *program_state = malloc(sizeof(PROGRAM_STATE));
-    if (program_state == NULL) {
+    if (program_state == NULL)
+    {
         printf("ERROR: Failed to allocate program_state enum\n");
         return 1;
     }
 
     TIMER_MODE *timer_mode = malloc(sizeof(TIMER_MODE));
-    if (timer_mode == NULL) {
+    if (timer_mode == NULL)
+    {
         printf("ERROR: failed to allocate timer_mode enum\n");
         return 1;
     }
 
     TIMER_STATE *timer_state = malloc(sizeof(TIMER_STATE));
-    if (timer_state == NULL) {
+    if (timer_state == NULL)
+    {
         printf("ERROR: Failed to allocate timer_state enum\n");
         return 1;
     }
 
-    pthread_mutex_t timer_mutex = PTHREAD_MUTEX_INITIALIZER;    // Used to multithread timer
-    pthread_mutex_t count_mutex = PTHREAD_MUTEX_INITIALIZER;
+    // pthread_mutex_t timer_mutex = PTHREAD_MUTEX_INITIALIZER;    // Used to multithread timer
+    // pthread_mutex_t count_mutex = PTHREAD_MUTEX_INITIALIZER;
 
     // SET TIMER DIGITS TO 0
-    int *field = (int*)timer; // Treat the struct as an array of ints so we can loop through them
+    int *field = (int *)timer; // Treat the struct as an array of ints so we can loop through them
     size_t numFields = sizeof(Timer) / sizeof(int);
 
     // Now assign 0 to all attributes using pointer arithmetic
-    for (int i = 0; i < numFields; i++) {
+    for (int i = 0; i < numFields; i++)
+    {
         *(field + i) = 0;
     }
 
     // Main Program Loop
-    while (isRunning) {
-        switch (*program_state) {
-            case (PROGRAM_UI_SELECT_TIMER): {
-                UI_SelectTimer(timer, timer_mode, program_state);
-            } break;
+    while (*isRunning)
+    {
+        switch (*program_state)
+        {
+        case (PROGRAM_UI_SELECT_TIMER):
+        {
+            UI_SelectTimer(timer, timer_mode, program_state);
+        }
+        break;
 
-            case (PROGRAM_UI_CONFIGURE_TIMER): {
-                UI_ConfigureTimer(timer, timer_mode, program_state);
-            } break;
+        case (PROGRAM_UI_CONFIGURE_TIMER):
+        {
+            UI_ConfigureTimer(timer, timer_mode, program_state);
+        }
+        break;
 
-            case (PROGRAM_INPUT): {
-                pthread_mutex_lock(&timer_mutex);
-                UI_Input(timer, timer_state, program_state);
-                pthread_mutex_unlock(&timer_mutex);
-            } break;
+        case (PROGRAM_INPUT):
+        {
+            // pthread_mutex_lock(&timer_mutex);
+            UI_Input(timer, timer_state, program_state);
+            // pthread_mutex_unlock(&timer_mutex);
+        }
+        break;
 
-            case (PROGRAM_TIMER_RUNNING): {
-                pthread_mutex_lock(&timer_mutex);
-                TIME_CountTime(timer, timer_mode, timer_state, program_state);
-                DisplayTimer(timer);
-                pthread_mutex_unlock(&timer_mutex);
-            } break;
+        case (PROGRAM_TIMER_RUNNING):
+        {
+            // pthread_mutex_lock(&timer_mutex);
+            TIME_CountTime(timer, timer_mode, timer_state, program_state);
+            DisplayTimer(timer);
+            // pthread_mutex_unlock(&timer_mutex);
+        }
+        break;
 
-            case (PROGRAM_TIMER_FINISHED): {
+        case (PROGRAM_TIMER_FINISHED):
+        {
+        }
+        break;
 
-            } break;
-
-            case (PROGRAM_EXIT): {
-                isRunning = false;
-            } break;
+        case (PROGRAM_EXIT):
+        {
+            isRunning = false;
+        }
+        break;
         }
     }
 
@@ -114,8 +135,8 @@ int main(int arc, char *argv[]) {
     timer_mode = NULL;
 
     // Destroy leftover mutexes
-    pthread_mutex_destroy(&timer_mutex);
-    pthread_mutex_destroy(&count_mutex);
+    // pthread_mutex_destroy(&timer_mutex);
+    // pthread_mutex_destroy(&count_mutex);
 
     // Clear screen at the end
     Flush();
