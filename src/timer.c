@@ -11,7 +11,6 @@ void TIMER_STOPWATCH(Timer *timer) {
         &timer->hoursTensPlace
     };
     
-    SleepSeconds(1);
     timer->secondsOnesPlace++;
             
     if (timer->secondsOnesPlace > 9) {
@@ -38,6 +37,8 @@ void TIMER_STOPWATCH(Timer *timer) {
         timer->hoursOnesPlace = 0;
         timer->hoursTensPlace++;
     }
+
+    SleepSeconds(1);
 
     // Reset all numbers to zero if it overflows
     if (timer->hoursTensPlace > 9) {
