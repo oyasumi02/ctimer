@@ -78,47 +78,36 @@ int main(int arc, char *argv[])
     // Main Program Loop
     while (*isRunning)
     {
-        switch (*program_state)
-        {
-        case (PROGRAM_UI_SELECT_TIMER):
-        {
-            UI_SelectTimer(timer, timer_mode, program_state);
-        }
-        break;
+        switch (*program_state) {
 
-        case (PROGRAM_UI_CONFIGURE_TIMER):
-        {
-            UI_ConfigureTimer(timer, timer_mode, program_state);
-        }
-        break;
+            case (PROGRAM_UI_SELECT_TIMER): {
+                UI_SelectTimer(timer, timer_mode, program_state);
+            } break;
 
-        case (PROGRAM_INPUT):
-        {
-            // pthread_mutex_lock(&timer_mutex);
-            UI_Input(timer, timer_state, program_state);
-            // pthread_mutex_unlock(&timer_mutex);
-        }
-        break;
+            case (PROGRAM_UI_CONFIGURE_TIMER): {
+                UI_ConfigureTimer(timer, timer_mode, program_state);
+            } break;
 
-        case (PROGRAM_TIMER_RUNNING):
-        {
-            // pthread_mutex_lock(&timer_mutex);
-            TIME_CountTime(timer, timer_mode, timer_state, program_state);
-            DisplayTimer(timer);
-            // pthread_mutex_unlock(&timer_mutex);
-        }
-        break;
+            case (PROGRAM_TIMER_RUNNING): {
+                // pthread_mutex_lock(&timer_mutex);
+                DisplayTimer(timer);
+                TIME_CountTime(timer, timer_mode, timer_state, program_state);
+                // pthread_mutex_unlock(&timer_mutex);
+            } break;
 
-        case (PROGRAM_TIMER_FINISHED):
-        {
-        }
-        break;
+            case (PROGRAM_INPUT): {
+                // pthread_mutex_lock(&timer_mutex);
+                UI_Input(timer, timer_state, program_state);
+                // pthread_mutex_unlock(&timer_mutex);
+            } break;
 
-        case (PROGRAM_EXIT):
-        {
-            isRunning = false;
-        }
-        break;
+            case (PROGRAM_TIMER_FINISHED): {
+
+            } break;
+
+            case (PROGRAM_EXIT): {
+                isRunning = false;
+            } break;
         }
     }
 
