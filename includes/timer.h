@@ -4,17 +4,9 @@
 #include "./mode.h"
 
 typedef struct {
-    
-    // Format: 00:00:00
-    int secondsOnesPlace;
-    int secondsTensPlace;
-
-    int minutesOnesPlace;
-    int minutesTensPlace;
-
-    int hoursOnesPlace;
-    int hoursTensPlace;
-
+    unsigned short int hours;
+    unsigned short int minutes;
+    unsigned short int seconds;
 } Timer;
 
 void TIMER_STOPWATCH(Timer *timer);

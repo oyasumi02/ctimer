@@ -8,12 +8,13 @@ or maybe even run multiple timers. Ideally
 a simple neat UI would suffice.
 
 Things to implement:
-
+!! REWORK THE TIMER STRUCT !! 
 - Dynamic UI structure
 - Multiple Timers running at the same time
 - Ease of use
 - Eventual portability
 - Do something with argc and argv for easy access
+- Add different themes
 
 WHERE I LEFT OFF:
-- Properly fix the state and mode system.
+Rewrite stopwatch logic

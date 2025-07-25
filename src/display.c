@@ -6,6 +6,7 @@
 #include "../includes/display.h"
 #include "../includes/timer.h"
 #include "../includes/util.h"
+#include "../includes/state.h"
 
 void UI_SelectTimer(Timer *timer, TIMER_MODE *timer_mode, PROGRAM_STATE *state) {
     Flush();
@@ -49,8 +50,12 @@ void UI_SelectTimer(Timer *timer, TIMER_MODE *timer_mode, PROGRAM_STATE *state) 
 
 void UI_ConfigureTimer(Timer *timer, TIMER_MODE *timer_mode, PROGRAM_STATE *state) {
     Flush();
-    char selectedTime[9]; // 9 is the size of "00:00:00" plus \0
     char selectedMode[16];
+
+    int input_seconds = 0;
+    int input_minutes = 0;
+    int input_hours = 0;
+    int limit = 59;
 
     switch (*timer_mode) {
         case (TIMER_MODE_STOPWATCH): {
@@ -65,54 +70,42 @@ void UI_ConfigureTimer(Timer *timer, TIMER_MODE *timer_mode, PROGRAM_STATE *stat
     // :: { CONFIGURE COUNTDOWN } ::
     if (*timer_mode == TIMER_MODE_COUNTDOWN) {
         printf("{}[]====================[]{}\n");
-        printf("   Current Mode: %s         \n", selectedMode);
+        printf("    Current Mode: %s        \n", selectedMode);
         printf("{}[]====================[]{}\n");
-        printf("++ Set the time           ++\n");
-        printf("++ Format: 00:00:00       ++\n");
+        printf("++  Set the time          ++\n");
+        printf("++  59 is the max         ++\n");
         printf("{}[]====================[]{}\n");
-        printf("--> ");
-        fgets(selectedTime, sizeof(selectedTime), stdin);
-        selectedTime[strcspn(selectedTime, "\n")] = '\0'; // Remove newline
+        printf("[ Seconds ] --> ");
+        scanf("%d", &input_seconds);
+        printf("[ Minutes ] --> ");
+        scanf("%d", &input_minutes);
+        printf("[ Hours ] --> ");
+        scanf("%d", &input_hours);
 
-        // Check Length
-        if (strlen(selectedTime) != 8) {
-            Flush();
-            printf("Incorrect format length, should exactly match: 00:00:00\n");
-            SleepSeconds(3);
-            UI_ConfigureTimer(timer, timer_mode, state);
-            return;
+        // If input is over the limit, cap it to the limit
+        if (input_seconds > limit) {
+            input_seconds = limit;
         }
 
-        size_t length = strlen(selectedTime);
-
-        // Check Formatting is exactly correct
-        if (selectedTime[2] == ':' && selectedTime[5] == ':') {
-            for (int i = 0; i < length; i++) {
-                if (i != 2 && i != 5) {
-                    if (!isdigit(selectedTime[i])) {
-                        Flush();
-                        printf("Invalid digits, should exactly match: 00:00:00\n");
-                        SleepSeconds(3);
-                        UI_ConfigureTimer(timer, timer_mode, state);
-                        return;
-                    }
-                }
-            }
-        } else {
-            Flush();
-            printf("Invalid format, did you remember to insert ':'?");
-            SleepSeconds(3);
-            UI_ConfigureTimer(timer, timer_mode, state);
-            return;
+        if (input_minutes > limit) {
+            input_minutes = limit;
         }
+
+        if (input_hours > limit) {
+            input_hours = limit;
+        }
+
+        // selectedTime[strcspn(selectedTime, "\n")] = '\0'; // Remove newline
 
         // Assign digits to timer struct
-        timer->hoursTensPlace = selectedTime[0] - '0';
-        timer->hoursOnesPlace = selectedTime[1] - '0';
-        timer->minutesTensPlace = selectedTime[3] - '0';
-        timer->minutesOnesPlace = selectedTime[4] - '0';
-        timer->secondsTensPlace = selectedTime[6] - '0';
-        timer->secondsOnesPlace = selectedTime[7] - '0';
+        if (input_seconds <= limit && input_minutes <= limit && input_hours <= limit) {
+            timer->seconds = input_seconds;
+            timer->minutes = input_minutes;
+            timer->hours = input_hours;
+        } else {
+            printf("ERROR: Could not assign timer digits to struct\n");
+            *state = PROGRAM_EXIT;
+        }
     }
 
 
@@ -136,17 +129,14 @@ void UI_ConfigureTimer(Timer *timer, TIMER_MODE *timer_mode, PROGRAM_STATE *stat
     if (*timer_mode == TIMER_MODE_COUNTDOWN) {
         Flush();
         printf("{}[]============================[]{}\n");
-        printf("   Current Mode: %s                 \n", selectedMode);
+        printf("    Current Mode: %s                \n", selectedMode);
         printf("{}[]============================[]{}\n");
-        printf("   %d%d:%d%d:%d%d                   \n",
-            timer->hoursTensPlace,
-            timer->hoursOnesPlace,
-            timer->minutesTensPlace,
-            timer->minutesOnesPlace,
-            timer->secondsTensPlace,
-            timer->secondsOnesPlace
+        printf("    %02d:%02d:%02d                  \n",
+            timer->hours,
+            timer->minutes,
+            timer->seconds
         );
-        printf("    Set the timer? [y/n]           \n");
+        printf("    Set the timer? [y/n]            \n");
         printf("{}[]============================[]{}\n");
         printf("--> ");
         scanf(" %c", &confirm);
@@ -182,13 +172,10 @@ void UI_Input(Timer *timer, TIMER_STATE *timer_state, PROGRAM_STATE *program_sta
 void DisplayTimer(Timer *timer) {
     Flush();
     printf("+=============+\n");
-    printf("%d%d:%d%d:%d%d\n",
-        timer->hoursTensPlace,
-        timer->hoursOnesPlace,
-        timer->minutesTensPlace,
-        timer->minutesOnesPlace,
-        timer->secondsTensPlace,
-        timer->secondsOnesPlace
+    printf("%02d:%02d:%02d \n",
+        timer->hours,
+        timer->minutes,
+        timer->seconds
     );
     printf("+=============+\n");
     fflush(stdout);
