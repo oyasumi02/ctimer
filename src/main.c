@@ -97,7 +97,7 @@ int main(int arc, char *argv[])
 
             case (PROGRAM_TIMER_RUNNING): {
                 // pthread_mutex_lock(&timer_mutex);
-                DisplayTimer(timer);
+                UI_DisplayTimer(timer);
                 TIME_CountTime(timer, timer_mode, timer_state, program_state);
                 // pthread_mutex_unlock(&timer_mutex);
             } break;

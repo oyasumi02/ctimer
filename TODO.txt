@@ -15,6 +15,3 @@ Things to implement:
 - Eventual portability
 - Do something with argc and argv for easy access
 - Add different themes
-
-WHERE I LEFT OFF:
-Rewrite stopwatch logic

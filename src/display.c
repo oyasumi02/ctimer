@@ -199,7 +199,7 @@ void UI_TimerFinished(Timer *timer, Timer *original_time, TIMER_MODE *timer_mode
     *program_state = PROGRAM_UI_SELECT_TIMER;
 }
 
-void DisplayTimer(Timer *timer) {
+void UI_DisplayTimer(Timer *timer) {
     Flush();
     printf("+=============+\n");
     printf("%02d:%02d:%02d \n",
@@ -209,8 +209,4 @@ void DisplayTimer(Timer *timer) {
     );
     printf("+=============+\n");
     fflush(stdout);
-}
-
-void DisplayTimerFinished(Timer *timer) {
-    
 }

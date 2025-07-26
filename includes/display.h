@@ -12,7 +12,6 @@ void UI_Input(Timer *timer, TIMER_STATE *timer_state, PROGRAM_STATE *program_sta
 void UI_TimerFinished(Timer *timer, Timer *original_time, TIMER_MODE *timer_mode, PROGRAM_STATE *program_state);
 
 // Timer
-void DisplayTimer(Timer *timer);
-void DisplayTimerFinished(Timer *timer);
+void UI_DisplayTimer(Timer *timer);
 
 #endif
