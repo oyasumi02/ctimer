@@ -48,7 +48,7 @@ void UI_SelectTimer(Timer *timer, TIMER_MODE *timer_mode, PROGRAM_STATE *state) 
     }
 }
 
-void UI_ConfigureTimer(Timer *timer, TIMER_MODE *timer_mode, PROGRAM_STATE *state) {
+void UI_ConfigureTimer(Timer *timer, Timer *original_time, TIMER_MODE *timer_mode, PROGRAM_STATE *state) {
     Flush();
     char selectedMode[16];
 
@@ -99,9 +99,16 @@ void UI_ConfigureTimer(Timer *timer, TIMER_MODE *timer_mode, PROGRAM_STATE *stat
 
         // Assign digits to timer struct
         if (input_seconds <= limit && input_minutes <= limit && input_hours <= limit) {
+
+            // Assign to timer struct
             timer->seconds = input_seconds;
             timer->minutes = input_minutes;
             timer->hours = input_hours;
+
+            // Then into the original_time copy, where it will be used at the finish screen
+            original_time->seconds = input_seconds;
+            original_time->minutes = input_minutes;
+            original_time->hours = input_hours;
         } else {
             printf("ERROR: Could not assign timer digits to struct\n");
             *state = PROGRAM_EXIT;
@@ -121,7 +128,6 @@ void UI_ConfigureTimer(Timer *timer, TIMER_MODE *timer_mode, PROGRAM_STATE *stat
         printf("{}[]============================[]{}\n");
         printf("--> ");
         scanf(" %c", &confirm);
-        getchar();
         confirm = tolower(confirm);
     }
 
@@ -167,6 +173,30 @@ void UI_Input(Timer *timer, TIMER_STATE *timer_state, PROGRAM_STATE *program_sta
     } else if (strcmp(input, "stop")) {
         *timer_state = TIMER_STATE_PAUSED;
     }
+}
+
+void UI_TimerFinished(Timer *timer, Timer *original_time, TIMER_MODE *timer_mode, PROGRAM_STATE *program_state) {
+    if (*timer_mode == TIMER_MODE_COUNTDOWN) {
+        Flush();
+        printf("--+[]================================[]+--\n");
+        printf("--+[]         COUNTDOWN DONE         []+--\n");
+        printf("--+[]================================[]+--\n");
+        printf("         Timer: %02d:%02d:%02d            \n",
+            original_time->hours,
+            original_time->minutes,
+            original_time->seconds
+        );
+        printf("--+[]================================[]+--\n");
+        printf("[Continue] --> ");
+        getchar();
+    }
+
+    // Clear timer
+    timer->seconds = 0;
+    timer->minutes = 0;
+    timer->hours = 0;
+
+    *program_state = PROGRAM_UI_SELECT_TIMER;
 }
 
 void DisplayTimer(Timer *timer) {

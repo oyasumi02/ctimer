@@ -10,6 +10,6 @@ typedef struct {
 } Timer;
 
 void TIMER_STOPWATCH(Timer *timer);
-void TIMER_COUNTDOWN(Timer *timer);
+void TIMER_COUNTDOWN(Timer *timer, PROGRAM_STATE *program_state);
 
 #endif

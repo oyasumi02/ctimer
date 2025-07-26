@@ -14,7 +14,7 @@ void TIME_CountTime(Timer *timer, TIMER_MODE *timer_mode, TIMER_STATE *timer_sta
 
     if (*timer_mode == TIMER_MODE_COUNTDOWN) {
         if (*timer_state == TIMER_STATE_RUNNING) {
-            TIMER_COUNTDOWN(timer);
+            TIMER_COUNTDOWN(timer, program_state);
         }
     }
 }

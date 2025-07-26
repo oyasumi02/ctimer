@@ -38,6 +38,13 @@ int main(int arc, char *argv[])
         return 1;
     }
 
+    // This is used at the "Timer finished" screen to show the original time
+    Timer *original_time = calloc(1, sizeof(Timer));
+    if (original_time == NULL) {
+        printf("ERROR: Failed to allocate original_timer struct");
+        return 1;
+    }
+
     // Initialize State and Mode enums
     PROGRAM_STATE *program_state = malloc(sizeof(PROGRAM_STATE));
     if (program_state == NULL)
@@ -85,7 +92,7 @@ int main(int arc, char *argv[])
             } break;
 
             case (PROGRAM_UI_CONFIGURE_TIMER): {
-                UI_ConfigureTimer(timer, timer_mode, program_state);
+                UI_ConfigureTimer(timer, original_time, timer_mode, program_state);
             } break;
 
             case (PROGRAM_TIMER_RUNNING): {
@@ -102,11 +109,11 @@ int main(int arc, char *argv[])
             } break;
 
             case (PROGRAM_TIMER_FINISHED): {
-
+                UI_TimerFinished(timer, original_time, timer_mode, program_state);
             } break;
 
             case (PROGRAM_EXIT): {
-                isRunning = false;
+                *isRunning = false;
             } break;
         }
     }
@@ -115,6 +122,7 @@ int main(int arc, char *argv[])
     free(isRunning);
     free(isCounting);
     free(timer);
+    free(original_time);
     free(program_state);
     free(timer_mode);
 
@@ -122,6 +130,7 @@ int main(int arc, char *argv[])
     isRunning = NULL;
     isCounting = NULL;
     timer = NULL;
+    original_time = NULL;
     program_state = NULL;
     timer_mode = NULL;
 
