@@ -13,7 +13,7 @@ typedef enum {
 typedef enum {
     TIMER_STATE_RUNNING,
     TIMER_STATE_PAUSED,
-    Timer_STATE_STOPPED
+    TIMER_STATE_STOPPED
 } TIMER_STATE;
 
 #endif

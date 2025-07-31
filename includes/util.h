@@ -3,7 +3,7 @@
 #include <stdbool.h>
 #include <ctype.h>
 
-void SleepSeconds(int sec);
+void SleepSeconds(unsigned int time);
 void Flush(void);
 void ClearBufferOverflow(void);
 void LowerString(char *s);

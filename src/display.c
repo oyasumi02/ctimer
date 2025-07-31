@@ -166,12 +166,13 @@ void UI_Input(Timer *timer, TIMER_STATE *timer_state, PROGRAM_STATE *program_sta
     printf("-->");
     fgets(input, sizeof(input), stdin);
     input[strcspn(input, "\n")] = '\0'; // Remove the newline
+    
     if (strcmp(input, "pause")) {
         *timer_state = TIMER_STATE_PAUSED;
     } else if (strcmp(input, "unpause")) {
-        *timer_state = TIMER_STATE_PAUSED;
+        *timer_state = TIMER_STATE_RUNNING;
     } else if (strcmp(input, "stop")) {
-        *timer_state = TIMER_STATE_PAUSED;
+        *timer_state = TIMER_STATE_STOPPED;
     }
 }
 

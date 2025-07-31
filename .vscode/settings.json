@@ -8,6 +8,9 @@
         "stdio.h": "c",
         "pthread.h": "c",
         "stdbool.h": "c",
-        "mode.h": "c"
-    }
+        "mode.h": "c",
+        "ctype.h": "c",
+        "unistd.h": "c"
+    },
+    "C_Cpp.errorSquiggles": "disabled"
 }
