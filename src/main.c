@@ -70,17 +70,21 @@ int main(int arc, char *argv[])
     pthread_mutex_t timer_mutex = PTHREAD_MUTEX_INITIALIZER;    // Used to multithread timer
     // pthread_mutex_t count_mutex = PTHREAD_MUTEX_INITIALIZER;
 
-    // SET TIMER DIGITS TO 0
-    int *field = (int *)timer; // Treat the struct as an array of ints so we can loop through them
-    size_t numFields = sizeof(Timer) / sizeof(int);
 
-    // Now assign 0 to all attributes using pointer arithmetic
-    for (int i = 0; i < numFields; i++)
-    {
-        *(field + i) = 0;
-    }
-
+    // Initialize values
     *isRunning = true;
+    *isCounting = false;
+    *program_state = PROGRAM_UI_SELECT_TIMER;
+    *timer_mode = TIMER_MODE_STOPWATCH;
+    *timer_state = TIMER_STATE_RUNNING;
+
+    timer->seconds = 0;
+    timer->minutes = 0;
+    timer->hours = 0;
+
+    original_time->seconds = 0;
+    original_time->minutes = 0;
+    original_time->hours = 0;
 
     // Main Program Loop
     while (*isRunning)
@@ -125,6 +129,7 @@ int main(int arc, char *argv[])
     free(original_time);
     free(program_state);
     free(timer_mode);
+    free(timer_state);
 
     // Double check
     isRunning = NULL;
