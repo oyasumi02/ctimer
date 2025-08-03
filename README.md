@@ -9,7 +9,7 @@ While Linux and Windows are supported, most Unix-Based kernels should be able to
 ## Guide
 ### <ins>Commands</ins>
 - Type ```ctimer``` in your terminal to run it.
-- Adding ```stopwatch```` or ```countdown``` is a quicker way to start the timer.
+- Adding ```stopwatch``` or ```countdown``` is a quicker way to start the timer.
 
 # Changelog
 ## v1.1.0 (08/03/2025)
@@ -21,3 +21,4 @@ While Linux and Windows are supported, most Unix-Based kernels should be able to
 - argc and argv implementation for faster access
 - Multiple Timers
 - I'll probably think of more here at some point
+
