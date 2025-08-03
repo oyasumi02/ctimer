@@ -17,5 +17,4 @@ Things to implement:
 - Add different themes
 
 Where I left off:
-- Windows Compatibility
 - Multithread input and timer

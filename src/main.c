@@ -8,8 +8,9 @@
 #include "../includes/state.h"
 #include "../includes/mode.h"
 #include "../includes/handle_time.h"
+#include "../includes/args.h"
 
-int main(int arc, char *argv[])
+int main(int argc, char *argv[])
 {
 
     // :: | [ ENUM STATES AND MUTEX INITIALIZATION ] | ::
@@ -85,6 +86,11 @@ int main(int arc, char *argv[])
     original_time->seconds = 0;
     original_time->minutes = 0;
     original_time->hours = 0;
+
+    // Command Line Parameters
+    if (argc > 1) {
+        ARGS_Parse(argc, argv, isCounting, program_state, timer_mode, timer_state);
+    }
 
     // Main Program Loop
     while (*isRunning)
