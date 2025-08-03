@@ -12,7 +12,7 @@ While Linux and Windows are supported, most Unix-Based kernels should be able to
 - Adding ```stopwatch```` or ```countdown``` is a quicker way to start the timer.
 
 # Changelog
-## v1.0.1 (08/03/2025)
+## v1.1.0 (08/03/2025)
 - Added support for command-line arguments (stopwatch and countdown).
 
 ## Future Ideas
