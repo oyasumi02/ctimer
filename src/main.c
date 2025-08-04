@@ -8,6 +8,7 @@
 #include "../includes/state.h"
 #include "../includes/mode.h"
 #include "../includes/handle_time.h"
+#include "../includes/themes.h"
 #include "../includes/args.h"
 
 int main(int argc, char *argv[])
@@ -34,7 +35,7 @@ int main(int argc, char *argv[])
     // Instantiate the timer (Will be set to)
     Timer *timer = calloc(1, sizeof(Timer));
     if (timer == NULL)
-    {
+    {printf("\\\\##############################################################################################################################\\\\\n");
         printf("ERROR: Failed to allocate timer struct\n");
         return 1;
     }
@@ -75,7 +76,7 @@ int main(int argc, char *argv[])
     // Initialize values
     *isRunning = true;
     *isCounting = false;
-    *program_state = PROGRAM_UI_SELECT_TIMER;
+    *program_state = PROGRAM_DEBUG;
     *timer_mode = TIMER_MODE_STOPWATCH;
     *timer_state = TIMER_STATE_RUNNING;
 
@@ -120,6 +121,12 @@ int main(int argc, char *argv[])
             case (PROGRAM_TIMER_FINISHED): {
                 UI_TimerFinished(timer, original_time, timer_mode, program_state);
             } break;
+
+            case (PROGRAM_DEBUG): {
+                THEME_Big(timer);
+                SleepSeconds(5);
+                *isRunning = false;
+            }
 
             case (PROGRAM_EXIT): {
                 *isRunning = false;

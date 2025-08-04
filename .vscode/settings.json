@@ -11,7 +11,8 @@
         "mode.h": "c",
         "ctype.h": "c",
         "unistd.h": "c",
-        "args.h": "c"
+        "args.h": "c",
+        "themes.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
