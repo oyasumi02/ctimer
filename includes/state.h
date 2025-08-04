@@ -7,6 +7,7 @@ typedef enum {
     PROGRAM_TIMER_RUNNING,              // Begins the count on the timer (Multithreaded)
     PROGRAM_INPUT,                      // Takes input (multithreaded)
     PROGRAM_TIMER_FINISHED,             // When the timer is finished
+    PROGRAM_DEBUG,                      // Debug Mode
     PROGRAM_EXIT                        // When user exits through the menu
 } PROGRAM_STATE;
 
