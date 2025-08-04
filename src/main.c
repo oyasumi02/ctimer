@@ -96,7 +96,6 @@ int main(int argc, char *argv[])
     while (*isRunning)
     {
         switch (*program_state) {
-
             case (PROGRAM_UI_SELECT_TIMER): {
                 UI_SelectTimer(timer, timer_mode, program_state);
             } break;

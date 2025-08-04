@@ -21,4 +21,3 @@ While Linux and Windows are supported, most Unix-Based kernels should be able to
 - argc and argv implementation for faster access
 - Multiple Timers
 - I'll probably think of more here at some point
-

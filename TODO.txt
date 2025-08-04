@@ -11,8 +11,6 @@ Things to implement:
 !! REWORK THE TIMER STRUCT !!
 - Dynamic UI structure
 - Multiple Timers running at the same time
-- Ease of use
-- Eventual portability
 - Do something with argc and argv for easy access
 - Add different themes
 
