@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
     // Instantiate the timer (Will be set to)
     Timer *timer = calloc(1, sizeof(Timer));
     if (timer == NULL)
-    {printf("\\\\##############################################################################################################################\\\\\n");
+    {
         printf("ERROR: Failed to allocate timer struct\n");
         return 1;
     }
