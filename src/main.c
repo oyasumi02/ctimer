@@ -8,7 +8,7 @@
 #include "../includes/state.h"
 #include "../includes/mode.h"
 #include "../includes/handle_time.h"
-#include "../includes/themes.h"
+#include "../includes/themes/theme_big.h"
 #include "../includes/args.h"
 
 int main(int argc, char *argv[])

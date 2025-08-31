@@ -4,6 +4,7 @@
 #include "./state.h"
 #include "./mode.h"
 #include <stdbool.h>
+#include "../includes/display_functions.h"
 
 // UI
 void UI_SelectTimer(Timer *timer, TIMER_MODE *timer_mode,PROGRAM_STATE *state);

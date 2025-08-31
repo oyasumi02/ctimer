@@ -37,7 +37,8 @@ void UI_SelectTimer(Timer *timer, TIMER_MODE *timer_mode, PROGRAM_STATE *state) 
 
         case 0: {
             *state = PROGRAM_EXIT;
-        } break;
+        } break;    fflush(stdout);
+
 
         default: {
             Flush();
@@ -201,13 +202,5 @@ void UI_TimerFinished(Timer *timer, Timer *original_time, TIMER_MODE *timer_mode
 }
 
 void UI_DisplayTimer(Timer *timer) {
-    Flush();
-    printf("+=============+\n");
-    printf("%02d:%02d:%02d \n",
-        timer->hours,
-        timer->minutes,
-        timer->seconds
-    );
-    printf("+=============+\n");
-    fflush(stdout);
+    DISPLAY_TIMER_DEFAULT(timer);
 }

@@ -2,21 +2,21 @@
 #define THEME_BIG_DIGITS_H
 
 struct THEME_BIG_DIGITS {
-    const char* digit_0 = {
+    static constexpr const char* digit_0[] = {
         "    ##############    ",
         "    ##############    ",
-        "    ##          ##    ",
-        "    ##          ##    ",
-        "    ##          ##    ",
-        "    ##          ##    ",
-        "    ##          ##    ",
-        "    ##          ##    ",
-        "    ##          ##    ",
+        "    ###        ###    ",
+        "    ###        ###    ",
+        "    ###        ###    ",
+        "    ###        ###    ",
+        "    ###        ###    ",
+        "    ###        ###    ",
+        "    ###        ###    ",
         "    ##############    ",
-        "    ##############    "
+        "    ##############    ",
     };
 
-    const char* digit_1 = {
+    static constexpr const char* digit_1[] = {
         "        ######        ",
         "        ######        ",
         "        ######        ",
@@ -30,7 +30,7 @@ struct THEME_BIG_DIGITS {
         "        ######        ",
     };
 
-    const char* digit_2 = {
+    static constexpr const char* digit_2[] = {
         "                      ",
         "      ###########     ",
         "    ##############    ",
@@ -44,7 +44,7 @@ struct THEME_BIG_DIGITS {
         "                      "
     };
 
-    const char* digit_3 = {
+    static constexpr const char* digit_3[] = {
         "                      ",
         "      ###########     ",
         "    ##############    ",
@@ -59,7 +59,7 @@ struct THEME_BIG_DIGITS {
         "                      ",
     };
 
-    const char* digit_4 = {
+    static constexpr const char* digit_4[] = {
         "                      ",
         "     ###      ###     ",
         "     ###      ###     ",
@@ -73,7 +73,7 @@ struct THEME_BIG_DIGITS {
         "                      ",
     };
 
-    const char* digit_5 = {
+    static constexpr const char* digit_5[] = {
         "                      ",
         "    ##############    ",
         "    ##############    ",
@@ -87,7 +87,7 @@ struct THEME_BIG_DIGITS {
         "    ##############    ",
     };
 
-    const char* digit_6 = [
+    static constexpr const char* digit_6[] = {
         "                      ",
         "    ##############    ",
         "    ##############    ",
@@ -98,9 +98,9 @@ struct THEME_BIG_DIGITS {
         "    ##############    ",
         "    ##############    ",
         "                      ",
-    ]
+    };
 
-    const char* digit_7 = {
+    static constexpr const char* digit_7[] = {
         "                      ",
         "                      ",
         "    ##############    ",
@@ -115,9 +115,9 @@ struct THEME_BIG_DIGITS {
         "              ####    ",
         "                      ",
         "                      ",
-    }
+    };
 
-    const char* digit_8 = {
+    static constexpr const char* digit_8[] = {
         "    ##############    ",
         "    ##############    ",
         "    ###        ###    ",
@@ -128,7 +128,20 @@ struct THEME_BIG_DIGITS {
         "    ###        ###    ",
         "    ##############    ",
         "    ##############    ",
-    }
+    };
+
+    static constexpr const char* digit_9[] = {
+        "    ##############    ",
+        "    ##############    ",
+        "    ###        ###    ",
+        "    ###        ###    ",
+        "    ##############    ",
+        "    ##############    ",
+        "               ###    ",
+        "               ###    ",
+        "    ##############    ",
+        "    ##############    ",
+    };
 };
 
 #endif
